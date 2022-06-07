@@ -53,7 +53,6 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
 	int retorno;
 	int r;
-	int id;
 	Passenger* pasajero;
 	char idStr[10];
 	char nombre[50];
@@ -65,9 +64,8 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 	char codigoVuelo[20];
 	char estadoVuelo[20];
 	retorno=0;
-	id=1000;
-	//id=CalcularId(proximoId);
-	itoa(id, idStr, 10);
+
+	printf("-> INGRESE SUS DATOS <-\n");
 
 	PedirTexto(nombre,"nombre");
 	firstToUpper(nombre);
@@ -83,17 +81,22 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 	r=DefinirTipoTxt(tipoPasajero, tipoPasajeroStr);
 
 	EstablecerCodigoVuelo(codigoVuelo);
-
 	EstablecerEstadoVuelo(estadoVuelo);
 
-	if(r==1)
+	if(	r==1	&&
+		LeerUltimoId("Id.txt", idStr) ==1 &&
+		CalcularProximoId(idStr) ==1 )
 	{
 		pasajero=Passenger_newParametros(idStr, nombre, tipoPasajeroStr,apellido,codigoVuelo,precioStr,estadoVuelo);
 	}
+
 	if(pasajero!=NULL)
 	{
-		ll_add(pArrayListPassenger,pasajero);
-		retorno=1;
+		if(GuardarId("Id.txt", idStr)==1)
+		{
+			ll_add(pArrayListPassenger,pasajero);
+			retorno=1;
+		}
 	}
     return retorno;
 }

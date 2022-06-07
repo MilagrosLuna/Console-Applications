@@ -100,6 +100,7 @@ int main()
    			break;
 
    			case 6:
+   				ll_sort(listaPasajeros,compareById,1);
    				if(controller_ListPassenger(listaPasajeros)==1)
 				{
 					printf("\nListado Exitoso\n");

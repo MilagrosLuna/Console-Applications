@@ -190,48 +190,61 @@ int ObtenerCriterio()
 
 
 
-int ObtenerMayorId(LinkedList* lista)
+int LeerUltimoId(char* path, char* id)
 {
-	int mayorId;
-	int id;
-	int len;
-	int i;
-	Passenger* aux;
-	mayorId=0;
-	if(lista!=NULL)
-	{
-		len = ll_len(lista);
+    int retorno;
+    FILE* pFile;
 
-		if(len>0)
-		{
-			for(i=0;i<len;i++)
-			{
-				aux = (Passenger*)ll_get(lista,i);
-				if(Passenger_getId(aux,&id)==1)
-				{
-					if(i==0 || (mayorId<id))
-					{
-						mayorId=id;
-					}
-				}
-			}
-		}
-	}
-	return mayorId;
+	retorno = 0;
+    pFile = fopen(path, "r");
+
+    if (pFile != NULL && id != NULL)
+    {
+        fscanf(pFile, "%[^\n]\n", id);
+        retorno = 1;
+    }
+
+	fclose(pFile);
+    return retorno;
 }
 
-int CalcularProximoId(int id)
+int CalcularProximoId(char* id)
 {
-	int idProximo;
+    int idAAumentar;
+    int retorno;
 
-	 idProximo=id+1;
+    retorno = 0;
 
-	return idProximo;
+    if (id != NULL)
+    {
+        idAAumentar = atoi(id);
+        idAAumentar++;
+        itoa(idAAumentar, id, 10);
+        retorno = 1;
+    }
+
+    return retorno;
 }
 
+int GuardarId(char* path, char* id)
+{
+    FILE* pFile;
+    int retorno;
 
+    retorno = 0;
+    pFile = fopen(path, "w");
 
-// mili
+    if (pFile != NULL)
+    {
+        fprintf(pFile, "%s\n", id);
+        retorno = 1;
+    }
+
+	fclose(pFile);
+
+	return retorno;
+}
+
 
 
 int FindID(LinkedList* listaPasajeros, int id)
@@ -360,6 +373,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 2:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					ll_sort(clon,compareByTipoPasajero,criterio);
 					if(criterio)
 					{
@@ -386,6 +400,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 3:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					ll_sort(clon,compareByEstado,criterio);
 					if(criterio)
 					{
@@ -412,6 +427,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 4:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					ll_sort(clon,compareByCodigo,criterio);
 					if(criterio)
 					{
@@ -438,6 +454,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 5:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					ll_sort(clon,compareByNombre,criterio);
 					if(criterio)
 					{
@@ -464,6 +481,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 6:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					if(!ll_sort(clon,compareByPrecio,criterio))
 					{
 						if(criterio)
@@ -492,6 +510,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 7:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					if(!ll_sort(clon,compareById,criterio))
 					{
 						if(criterio)
@@ -520,6 +539,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 8:
 					criterio=ObtenerCriterio();
+					MensajeEspera();
 					ll_sort(clon,compareByApellido,criterio);
 					if(criterio)
 					{
@@ -560,6 +580,12 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 	return rtn;
 }
 
+void MensajeEspera()
+{
+	printf("\n-------------------------------------------\n");
+	printf("---Aguarde su lista esta siendo ordenada---\n");
+	printf("-------------------------------------------\n\n");
+}
 
 
 
