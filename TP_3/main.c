@@ -20,16 +20,18 @@ int main()
    	seguir = 's';
    	while(seguir=='s')
    	{
-   		printf("1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).  \n");
-   		printf("2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).\n");
-   		printf("3. Alta de pasajero: \n");
-   		printf("4. Modificar datos de pasajero: \n");
-   		printf("5. Baja de pasajero: \n");
-   		printf("6. Listar pasajeros: \n");
-   		printf("7. Ordenar pasajeros: \n");
-   		printf("8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto). \n");
-   		printf("9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario). \n");
-   		printf("10. Salir \n");
+   		printf("---------------------------------------------------------------------------------------------------------------\n");
+   		printf("\t1. Cargar los datos de los pasajeros desde el archivo data.csv (MODO TEXTO).  \n\n");
+   		printf("\t2. Cargar los datos de los pasajeros desde el archivo data.csv (MODO BINARIO).\n\n");
+   		printf("\t3. Alta de pasajero: \n\n");
+   		printf("\t4. Modificar datos de pasajero: \n\n");
+   		printf("\t5. Baja de pasajero: \n\n");
+   		printf("\t6. Listar pasajeros: \n\n");
+   		printf("\t7. Ordenar pasajeros: \n\n");
+   		printf("\t8. Guardar los datos de los pasajeros en el archivo data.csv (MODO TEXTO). \n\n");
+   		printf("\t9. Guardar los datos de los pasajeros en el archivo data.csv (MODO BINARIO). \n\n");
+   		printf("\t10. Salir \n");
+   		printf("---------------------------------------------------------------------------------------------------------------\n");
    		opcion=PedirEntero("Elija una opcion: \n");
    		switch(opcion)
    		{
@@ -44,7 +46,7 @@ int main()
    				}
    				else
    				{
-   					printf("Ya se ha realizado una carga desde el archivo");
+   					printf("Ya se ha realizado una carga desde el archivo!!");
    				}
 			break;
 
@@ -60,7 +62,7 @@ int main()
 				}
 				else
 				{
-					printf("Ya se ha realizado una carga desde el archivo");
+					printf("Ya se ha realizado una carga desde el archivo!!");
 				}
    			break;
 
@@ -68,7 +70,7 @@ int main()
    				auxiliar=controller_addPassenger(listaPasajeros);
    				if(auxiliar==1)
    				{
-   					printf("OK,agrego a la lista");
+   					printf("Pasajero cargado exitosamente..");
    				}
    			break;
 
@@ -95,7 +97,7 @@ int main()
 				auxiliar=controller_removePassenger(listaPasajeros);
 				if(auxiliar==1)
 				{
-					printf("ok");
+					printf("..");
 				}
    			break;
 
@@ -116,8 +118,7 @@ int main()
    				auxiliar=controller_sortPassenger(listaPasajeros);
 				if(auxiliar==1)
 				{
-					printf("ok");
-					printf("\nListado Exitoso\n");
+					printf("Listado Exitoso\n");
 				}
    			break;
 

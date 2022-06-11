@@ -3,7 +3,7 @@
 #include "Passenger.h"
 #include "parser.h"
 #include "Propia.h"
-#define TAM 20
+
 
 
 int controller_loadFromText(char* path , LinkedList* pArrayListPassenger);

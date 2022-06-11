@@ -12,12 +12,14 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
 	int rtn;
 	FILE* pArchivo;
 	rtn=0;
+
 	pArchivo=fopen(path,"r");
 	if(parser_PassengerFromText(pArchivo, pArrayListPassenger)==1)
 	{
 		rtn=1;
 	}
 	fclose(pArchivo);
+
 	return rtn;
 }
 
@@ -33,13 +35,14 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 	int rtn;
 	FILE* pArchivo;
 	rtn=0;
+
 	pArchivo=fopen(path,"rb");
 	if(parser_PassengerFromBinary(pArchivo, pArrayListPassenger)==1)
 	{
-		printf("ok\n");
 		rtn=1;
 	}
 	fclose(pArchivo);
+
 	return rtn;
 }
 
@@ -113,8 +116,10 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 	int rtn;
 	int index;
 	int idFind;
-	Passenger* pasajero = NULL;
+	Passenger* pasajero;
 	rtn=-1;
+	pasajero = NULL;
+
 	if(pArrayListPassenger!=NULL)
 	{
 		if(controller_ListPassenger(pArrayListPassenger)==1)
@@ -195,7 +200,6 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
     return rtn;
 }
 
-
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -205,8 +209,9 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 {
-	int retorno = -1;
+	int retorno;
 	FILE* pArchivo;
+	retorno = -1;
 
 	if(path!=NULL && pArrayListPassenger!=NULL)
 	{
@@ -225,6 +230,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 		}
 		fclose(pArchivo);
 	}
+
 	return retorno;
 }
 
@@ -237,12 +243,13 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
-    int retorno = -1;
+    int retorno;
     int i;
     int len;
     FILE* pArchivo;
-    Passenger* aux = NULL;
-
+    Passenger* aux;
+    retorno = -1;
+    aux = NULL;
     if(path!=NULL && pArrayListPassenger!=NULL)
     {
         len = ll_len(pArrayListPassenger);
@@ -253,14 +260,14 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
             for(i=0; i<len ;i++)
             {
                 aux = (Passenger*) ll_get(pArrayListPassenger,i);
-
                 if(aux!=NULL)
                 {
                     fwrite(aux,sizeof(Passenger),1,pArchivo);
                     retorno=1;
                 }
             }
-        }else
+        }
+        else
         {
             printf("Error al abrir el archivo\n");
         }

@@ -23,9 +23,9 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 	char estado[1000];
 	int r;
 	retorno=0;
-	if(pFile!=NULL&&pArrayListPassenger!=NULL)
+	if(pFile!=NULL && pArrayListPassenger!=NULL)
 	{
-		printf("abrio el archivo\n");
+		printf("Abrio el archivo\n");
 		do
 		{
 			r=fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,apellido,precio,tipoPasajero,codigoVuelo,estado);
@@ -35,7 +35,6 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 				pasajero=Passenger_newParametros(id,nombre,tipoPasajero,apellido,codigoVuelo,precio,estado);
 				if(pasajero!=NULL)
 				{
-					//printf("agrego a la lista\n");
 					ll_add(pArrayListPassenger,pasajero);
 					retorno=1;
 				}
@@ -66,9 +65,9 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 	Passenger* pasajero;
 	int retorno;
 	retorno=0;
-	if(pFile!=NULL&&pArrayListPassenger!=NULL)
+	if(pFile!=NULL && pArrayListPassenger!=NULL)
 	{
-		printf("abrio el archivo\n");
+		printf("Abrio el archivo\n");
 		do
 		{
 			pasajero = Passenger_new();
@@ -85,7 +84,7 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 				}
 			}
 		}while(!feof(pFile));
-
 	}
+
 	return retorno;
 }

@@ -1,5 +1,7 @@
 
 #include "Propia.h"
+/// \brief  Muestra las opciones de estado de vuelo y valida el ingreso
+/// \param estadoVuelo
 void EstablecerEstadoVuelo(char* estadoVuelo)
 {
 	int opcion;
@@ -49,7 +51,8 @@ void EstablecerEstadoVuelo(char* estadoVuelo)
 		printf("\n");
 	}
 }
-
+/// \brief Muestra las opciones de codigo de vuelo y valida el ingreso
+/// \param codigoVuelo
 void EstablecerCodigoVuelo(char* codigoVuelo)
 {
 	int opcion;
@@ -101,7 +104,10 @@ void EstablecerCodigoVuelo(char* codigoVuelo)
 	}
 }
 
-
+/// \brief Lista un pasajero de la lista en la posicion recibida
+/// \param pArrayListPassenger
+/// \param index
+/// \return
 int ListPassenger(LinkedList* pArrayListPassenger,int index)
 {
 	int rtn;
@@ -133,7 +139,10 @@ int ListPassenger(LinkedList* pArrayListPassenger,int index)
     return rtn;
 }
 
-
+/// \brief Escribe en el archivo los pasajeros para guardarlos
+/// \param archivo
+/// \param pArrayListPassenger
+/// \return
 int saveTxt(FILE* archivo , LinkedList* pArrayListPassenger)
 {
 	int rtn;
@@ -149,7 +158,7 @@ int saveTxt(FILE* archivo , LinkedList* pArrayListPassenger)
 	char tipoPasajerostr[50];
 	rtn=0;
 	len = ll_len(pArrayListPassenger);
-	if(len>0&&archivo!=NULL && pArrayListPassenger!=NULL)
+	if(len>0 && archivo!=NULL && pArrayListPassenger!=NULL)
 	{
 		for(int i=0; i<len ;i++)
 		{
@@ -177,7 +186,8 @@ int saveTxt(FILE* archivo , LinkedList* pArrayListPassenger)
 }
 
 
-
+/// \brief Muestra las opciones de criterio y devuelve la opcion ingresada y validada
+/// \return
 int ObtenerCriterio()
 {
 	int criterio;
@@ -189,7 +199,10 @@ int ObtenerCriterio()
 }
 
 
-
+/// \brief Lee el ultimo id que se registro y devuelve ese dato por punteros
+/// \param path
+/// \param id
+/// \return
 int LeerUltimoId(char* path, char* id)
 {
     int retorno;
@@ -207,7 +220,7 @@ int LeerUltimoId(char* path, char* id)
 	fclose(pFile);
     return retorno;
 }
-
+/// recibe el ultimo id usado y calcula el siguiente
 int CalcularProximoId(char* id)
 {
     int idAAumentar;
@@ -225,7 +238,10 @@ int CalcularProximoId(char* id)
 
     return retorno;
 }
-
+/// \brief Recibe el id que se cargo y lo guarda en el archivo
+/// \param path
+/// \param id
+/// \return
 int GuardarId(char* path, char* id)
 {
     FILE* pFile;
@@ -246,7 +262,10 @@ int GuardarId(char* path, char* id)
 }
 
 
-
+/// \brief Busca en la lista de pasajeros el id que recibio y devuelve la posicion
+/// \param listaPasajeros
+/// \param id
+/// \return
 int FindID(LinkedList* listaPasajeros, int id)
 {
 	int i;
@@ -254,6 +273,7 @@ int FindID(LinkedList* listaPasajeros, int id)
 	int index;
 	int idAux;
 	Passenger* auxiliar;
+	index= -1;
 
 	if(listaPasajeros!=NULL)
 	{
@@ -278,7 +298,10 @@ int FindID(LinkedList* listaPasajeros, int id)
 	return index;
 }
 
-
+/// \brief Elimia al pasajero de la lista
+/// \param lista
+/// \param id
+/// \return
 int Remove(LinkedList* lista,int id)
 {
 	int opcion;
@@ -303,7 +326,7 @@ int Remove(LinkedList* lista,int id)
 				{
 					case 1:
 						ll_remove(lista,index);
-						printf("Baja realizada con exito\n");
+						printf("Baja realizada con exito");
 						isOk = 1;
 						seguir = 'n';
 					break;
@@ -331,7 +354,9 @@ int Remove(LinkedList* lista,int id)
 
 
 
-
+/// \brief Menu de opciones de ordenamiento de la lista
+/// \param pArrayListPassenger
+/// \return
 int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 {
 	int opcion;
@@ -566,7 +591,7 @@ int MostarOpcionesListado(LinkedList* pArrayListPassenger)
 
 				case 9:
 					// sale del menu
-					printf("Saliendo..\n");
+					printf("Saliendo..");
 					seguir = 'n';
 				break;
 
@@ -587,125 +612,150 @@ void MensajeEspera()
 	printf("-------------------------------------------\n\n");
 }
 
-
-
-
-
-
-
-
-
-
-
+/// \brief Compara por id al pasajero 1 con el 2 y devulve si si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareById(void* pasajero1, void* pasajero2)
 {
-	int resultado=0;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	int id1;
 	int id2;
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn=0;
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getId(aux1,&id1)==1) && (Passenger_getId(aux2,&id2)==1))
+		if(	(Passenger_getId(aux1,&id1)==1) &&
+			(Passenger_getId(aux2,&id2)==1))
 		{
 			if(id1 > id2)//mayores
 			{
-				resultado = 1;
+				rtn = 1;
 			}
 			else
 			{
 				if(id1 < id2)//menores
 				{
-					resultado = -1;
+					rtn = -1;
 				}
 			}
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
+/// \brief Compara por nombre a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByNombre(void* pasajero1, void* pasajero2)
 {
-	int resultado = -1;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	char nombre1[100];
 	char nombre2[100];
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn = -1;
+
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getNombre(aux1,nombre1)==1) && (Passenger_getNombre(aux2,nombre2)==1))
+		if(	(Passenger_getNombre(aux1,nombre1)==1) &&
+			(Passenger_getNombre(aux2,nombre2)==1))
 		{
-			resultado = strcmp(nombre1,nombre2);
+			rtn = strcmp(nombre1,nombre2);
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
-
+/// \brief Compara por codigo de vuelo a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByCodigo(void* pasajero1, void* pasajero2)
 {
-	int resultado = -1;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	char codigo1[100];
 	char codigo2[100];
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn = -1;
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getCodigoVuelo(aux1,codigo1)==1) && (Passenger_getCodigoVuelo(aux2,codigo2)==1))
+		if(	(Passenger_getCodigoVuelo(aux1,codigo1)==1) &&
+			(Passenger_getCodigoVuelo(aux2,codigo2)==1))
 		{
-			resultado = strcmp(codigo1,codigo2);
+			rtn = strcmp(codigo1,codigo2);
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
+/// \brief Compara por estado de vuelo a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByEstado(void* pasajero1, void* pasajero2)
 {
-	int resultado = -1;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	char estado1[100];
 	char estado2[100];
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn = -1;
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getEstadoVuelo(aux1,estado1)==1) && (Passenger_getEstadoVuelo(aux2,estado2)==1))
+		if(	(Passenger_getEstadoVuelo(aux1,estado1)==1) &&
+			(Passenger_getEstadoVuelo(aux2,estado2)==1))
 		{
-			resultado = strcmp(estado1,estado2);
+			rtn = strcmp(estado1,estado2);
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
-
+/// \brief Compara por tipo de pasajero a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByTipoPasajero(void* pasajero1, void* pasajero2)
 {
-	int resultado=-1;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	int tipo1;
 	int tipo2;
 	char tipoStr1[40];
 	char tipoStr2[40];
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn = -1;
+
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
@@ -716,65 +766,78 @@ int compareByTipoPasajero(void* pasajero1, void* pasajero2)
 			Passenger_getTipoPasajero(aux2, &tipo2) == 1 &&
 			DefinirTipoTxt(tipo2, tipoStr2) ==1)
 		{
-			resultado = strcmp(tipoStr1,tipoStr2);
+			rtn = strcmp(tipoStr1,tipoStr2);
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
-
+/// \brief Compara por precio a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByPrecio(void* pasajero1, void* pasajero2)
 {
-	int resultado=0;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	float precio1;
 	float precio2;
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn=0;
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getPrecio(aux1,&precio1)==1) && (Passenger_getPrecio(aux2,&precio2)==1))
+		if(	(Passenger_getPrecio(aux1,&precio1)==1) &&
+			(Passenger_getPrecio(aux2,&precio2)==1))
 		{
 			if(precio1 > precio2)//mayores
 			{
-				resultado = 1;
+				rtn = 1;
 			}
 			else
 			{
 				if(precio1 < precio2)//menores
 				{
-					resultado = -1;
+					rtn = -1;
 				}
 			}
 		}
 	}
 
-	return resultado;
+	return rtn;
 }
-
+/// \brief Compara por apellido a 2 pasajeros y devulve si es mayor o menor
+/// \param pasajero1
+/// \param pasajero2
+/// \return
 int compareByApellido(void* pasajero1, void* pasajero2)
 {
-	int resultado = -1;
-	Passenger* aux1 = NULL;
-	Passenger* aux2 = NULL;
+	int rtn;
+	Passenger* aux1;
+	Passenger* aux2;
 	char apellido1[100];
 	char apellido2[100];
+	aux1 = NULL;
+	aux2 = NULL;
+	rtn=0;
 
 	if(pasajero1!=NULL && pasajero2!=NULL)
 	{
 		aux1 = (Passenger*) pasajero1;
 		aux2 = (Passenger*) pasajero2;
 
-		if((Passenger_getApellido(aux1,apellido1)==1) && (Passenger_getApellido(aux2,apellido2)==1))
+		if(	(Passenger_getApellido(aux1,apellido1)==1) &&
+			(Passenger_getApellido(aux2,apellido2)==1))
 		{
-			resultado = strcmp(apellido1,apellido2);
+			rtn = strcmp(apellido1,apellido2);
 		}
 	}
-	return resultado;
+	return rtn;
 }
 
 
